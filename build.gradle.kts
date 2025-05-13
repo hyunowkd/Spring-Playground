@@ -32,6 +32,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("com.h2database:h2")
+	implementation("com.google.firebase:firebase-admin:9.2.0")
 }
 
 kotlin {

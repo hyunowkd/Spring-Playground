@@ -12,6 +12,7 @@ class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     fun sendMessage(@Payload chatMessage: ChatMessage?): ChatMessage? {
+        println("Received message: $chatMessage")
         return chatMessage
     }
 

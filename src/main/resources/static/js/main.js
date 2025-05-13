@@ -17,40 +17,37 @@ var colors = [
 ];
 
 function connect(event) {
-    username = document.querySelector('#name').value.trim();
-
-    if(username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-
-        var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, onConnected, onError);
+    if (!username) {
+        username = 'User_' + Math.floor(Math.random() * 10000); // 랜덤 이름 생성
     }
-    event.preventDefault();
+
+    usernamePage?.classList?.add('hidden');
+    chatPage?.classList?.remove('hidden');
+
+    var socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, onConnected, onError);
+
+    if (event) event.preventDefault();
 }
 
 
 function onConnected() {
-    // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
 
-    // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({ sender: username, type: 'JOIN' })
     )
 
     connectingElement.classList.add('hidden');
 }
 
-
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
-
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
@@ -65,7 +62,6 @@ function sendMessage(event) {
     }
     event.preventDefault();
 }
-
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
@@ -104,7 +100,6 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
-
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -114,5 +109,8 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+usernameForm?.addEventListener('submit', connect, true)
+messageForm?.addEventListener('submit', sendMessage, true)
+
+// ✅ 브라우저가 로드되자마자 자동 연결
+window.addEventListener('load', connect);
