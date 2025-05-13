@@ -33,6 +33,10 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("com.h2database:h2")
 	implementation("com.google.firebase:firebase-admin:9.2.0")
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.700")
+	implementation("com.drewnoakes:metadata-extractor:2.18.0")
+	implementation("org.jcodec:jcodec:0.2.5")
+	implementation("org.jcodec:jcodec-javase:0.2.5")
 }
 
 kotlin {
