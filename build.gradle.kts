@@ -37,6 +37,7 @@ dependencies {
 	implementation("com.drewnoakes:metadata-extractor:2.18.0")
 	implementation("org.jcodec:jcodec:0.2.5")
 	implementation("org.jcodec:jcodec-javase:0.2.5")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 
 kotlin {
